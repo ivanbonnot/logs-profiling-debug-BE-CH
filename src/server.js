@@ -1,5 +1,7 @@
 const morgan = require('morgan');
 const express = require('express');
+const compression = require('compression')
+const logger = require('../src/log/log4js')
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
@@ -42,6 +44,7 @@ const baseProcces = () => {
     app.set('json spaces', 2)
 
     //Middlewares
+    app.use(compression())
     app.use(morgan('dev'))
     app.use(express.urlencoded({ extended: true }))
     app.use(express.json())
@@ -66,7 +69,7 @@ const baseProcces = () => {
         connectToDb("mongo")
         console.log(`Servidor http escuchando en el puerto ${server.address().port}`)
     })
-    server.on('error', error => console.log(`Error en servidor ${error}`))
+    server.on('error', error => logger.error(`Error en servidor ${error}`))
 
 
 
@@ -76,8 +79,14 @@ const baseProcces = () => {
     app.use("/api/productos-test", productsRouterTest)
     app.use("/api/randoms", randomsRouter)
 
-    //__ WebServ Routes __//
+    //--- Ruta inexistente
+    app.get('*', (req, res) => {
+        logger.warn(`Ruta: ${req.url}, metodo: ${req.method} no existe`)
+        res.send(`Ruta: ${req.url}, metodo: ${req.method} no existe`)
+    })
 
+
+    //__ WebServ Routes __//
     app.use("/", authWebRouter)
     app.use("/", homeWebRouter)
 
@@ -107,6 +116,7 @@ const baseProcces = () => {
     });
 
 }
+
 
 if (config.mode != 'CLUSTER') {
 

@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const infoRouter = Router();
+const logger = require('../../log/log4js')
 
 infoRouter.get('/', async ( req, res) => {
 
@@ -12,6 +13,9 @@ infoRouter.get('/', async ( req, res) => {
         memory: 'Uso de la memoria: ' + process.memoryUsage()
     }
 
+    
+    logger.info(`Ruta: /info, metodo: ${req.method}`)
+    console.log(info) 
     res.send(JSON.stringify(info))
 })
 
