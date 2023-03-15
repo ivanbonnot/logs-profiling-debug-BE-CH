@@ -71,13 +71,12 @@ const baseProcces = () => {
     })
     server.on('error', error => logger.error(`Error en servidor ${error}`))
 
-
-
+    
     //Routes
     app.use("/info", infoRouter)
     app.use("/api/productos", productsRouter)
     app.use("/api/productos-test", productsRouterTest)
-    app.use("/api/randoms", randomsRouter)
+    // app.use("/api/randoms", randomsRouter)
 
     //--- Ruta inexistente
     app.get('*', (req, res) => {
