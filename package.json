@@ -34,7 +34,8 @@
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js", 
+    "start": "0x src/server.js"
   },
   "name": "apirestful",
   "version": "1.0.0",

@@ -15,7 +15,7 @@ infoRouter.get('/', async ( req, res) => {
 
     
     logger.info(`Ruta: /info, metodo: ${req.method}`)
-    console.log(info) 
+    //console.log(info) 
     res.send(JSON.stringify(info))
 })
 
