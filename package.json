@@ -39,10 +39,10 @@
   },
   "name": "apirestful",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ivanbonnot/API-RESTful.git"
+    "url": "git+https://github.com/ivanbonnot/logs-profiling-debug-BE-CH.git"
   },
   "author": "",
   "license": "ISC",
