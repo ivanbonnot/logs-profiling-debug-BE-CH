@@ -79,11 +79,12 @@ const baseProcces = () => {
     // app.use("/api/randoms", randomsRouter)
 
     //--- Ruta inexistente
+    /*
     app.get('*', (req, res) => {
         logger.warn(`Ruta: ${req.url}, metodo: ${req.method} no existe`)
         res.send(`Ruta: ${req.url}, metodo: ${req.method} no existe`)
     })
-
+    */
 
     //__ WebServ Routes __//
     app.use("/", authWebRouter)

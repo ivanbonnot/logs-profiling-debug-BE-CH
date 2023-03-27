@@ -8,7 +8,12 @@ const userSchema = new Schema({
   user: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  address: {type: String, required: true},
+  phone: {type: String, required: true},
+  avatar: {type: 'Buffer'}
 });
+
+
 
 userSchema.pre('save', function(next) {
   const user = this;

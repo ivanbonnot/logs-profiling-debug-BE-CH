@@ -10,7 +10,7 @@ class ControllerMongoDb {
 
     getAll = async () => await userModel.find({});
 
-    getUserById = async (id) => await userModel.findOne({ _id: id });
+    getUser = async (email) => await userModel.findOne({ email: email });
 
     updateUser = async (id, userToUpdate) => {
         return await userModel.updateOne(

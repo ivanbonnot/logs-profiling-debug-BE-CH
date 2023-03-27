@@ -15,25 +15,25 @@ passport.deserializeUser(function(username, done) {
 
 passport.use('login', new LocalStrategy((username, password, done) => {
   const user = users.find(user => user.username === username && compareSync(password, user.password));
-
   if (user) {
     done(null, user);
     return;
   }
-
   done(null, false, { message: 'Nombre de usuario o contraseña incorrectos' });
 }));
 
-passport.use('register', new LocalStrategy((username, password, done) => {
+passport.use('register', new LocalStrategy({passReqToCallback: true},
+  (req, username, password, done) => {
+
+  const email = req.body.email
   const existentUser = users.find(user => user.username === username);
+
   if (existentUser) {
     done(null, false, { message: 'El usuario o el email ya existe' });
     return;
   }
 
-  const user = { username, password: hashSync(password, 10) };
-  console.log({ user });
+  const user = { username, password: hashSync(password, 10), email };
   users.push(user);
-
   done(null, user);
 }));

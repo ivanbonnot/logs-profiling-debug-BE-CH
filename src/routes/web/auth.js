@@ -43,17 +43,27 @@ authWebRouter.get('/register', (req, res) => {
 })
 
 
-authWebRouter.post('/register', passport.authenticate('register', { failureRedirect: '/login', failureFlash: true }), (req, res) => {
+authWebRouter.post('/register', passport.authenticate('register', { failureRedirect: '/login', failureFlash: true }), async (req, res) => {
     req.session.username = req.user.username;
     const { username, email, password } = req.body;
 
     const newUser = new User(
         username,
+        password,
         email,
-        password
+        address,
+        phone,
+        avatar
     )
+    const user = await userController.getUser(email)
 
-    userController.saveUser(newUser);
+
+    if(user.email) {
+        console.log("usuario existente ")
+    } else {
+        userController.saveUser(newUser);
+    }
+    
     res.redirect('/login');
 
 });
