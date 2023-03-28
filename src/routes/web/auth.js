@@ -7,6 +7,7 @@ const userController = require('../../controllers/userMongoDB')
 
 const passport = require('passport');
 require('../../config/authPassLocal');
+const sendEmail = require('../../helpers/nodeMailer')
 
 const authWebRouter = Router()
 authWebRouter.use(flash())
@@ -38,14 +39,14 @@ authWebRouter.get('/register', (req, res) => {
     if (nombre) {
         res.redirect('/home')
     } else {
-        res.render(path.join(process.cwd(), 'public/views/register.ejs'), { message: req.flash('error')})
+        res.render(path.join(process.cwd(), 'public/views/register.ejs'), { message: req.flash('error') })
     }
 })
 
 
 authWebRouter.post('/register', passport.authenticate('register', { failureRedirect: '/login', failureFlash: true }), async (req, res) => {
     req.session.username = req.user.username;
-    const { username, email, password } = req.body;
+    const { username, email, password, address, phone, avatar } = req.body;
 
     const newUser = new User(
         username,
@@ -55,15 +56,26 @@ authWebRouter.post('/register', passport.authenticate('register', { failureRedir
         phone,
         avatar
     )
+
     const user = await userController.getUser(email)
+    console.log(user)
 
-
-    if(user.email) {
+    if (user) {
         console.log("usuario existente ")
     } else {
+        
+        const html = `
+        <h2>Email: ${email}</h2>
+        <h2>Nombre de usuario: ${username}</h2>
+        <h2>Dirección: ${address}</h2>
+        <h2>Teléfono: ${phone}</h2>
+        <h2>Foto: ${avatar}</h2>
+         `;
+
+        sendEmail(email, username, html)
         userController.saveUser(newUser);
     }
-    
+
     res.redirect('/login');
 
 });

@@ -22,10 +22,10 @@ const baseProcces = () => {
     const { Server: HTTPServer } = require('http');
     const { Server: IOServer } = require('socket.io');
 
-    const infoRouter = require('./routes/api/info')
-    const productsRouter = require("./routes/api/product");
+    const infoRouter = require('./routes/api/infoRouter')
+    const productsRouter = require("./routes/api/productRouter");
     const productsRouterTest = require("./routes/api/products-test");
-    const randomsRouter = require('./routes/api/randoms')
+    const cartRouter = require('../src/routes/api/cartRouter.js')
     const authWebRouter = require('../src/routes/web/auth.js')
     const homeWebRouter = require('../src/routes/web/home')
 

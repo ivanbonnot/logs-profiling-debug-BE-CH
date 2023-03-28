@@ -39,11 +39,6 @@ https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
                         required="" id="id_username">
                 </div>
                 <div>
-                    <p>Correo Electrónico</p>
-                    <input type="email" name="email" autofocus="" autocapitalize="none" autocomplete="email" required=""
-                        id="id_email">
-                </div>
-                <div>
                     <p>Password</p>
                     <div class="password">
                         <input type="password" name="password" autocomplete="current-password" required=""
@@ -52,17 +47,22 @@ https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
                     </div>
                 </div>
                 <div>
+                    <p>Correo Electrónico</p>
+                    <input type="email" name="email" autofocus="" autocapitalize="none" autocomplete="email" required=""
+                        id="id_email">
+                </div>
+                <div>
                     <p>Dirección</p>
-                    <input type="text" id="address" name="address" placeholder="Ej: Calle Falsa 123" required>
+                    <input type="text" name="address" placeholder="Ej: Calle Falsa 123" required>
                 </div>
                 <div>
                     <p>Teléfono</p>
-                    <input type="tel" id="phone" name="phone" pattern="^\+(?:[0-9] ?){6,14}[0-9]$"
+                    <input type="tel" name="phone" pattern="^\+(?:[0-9] ?){6,14}[0-9]$"
                         placeholder="+1 123 456 7890" required>
                 </div>
                 <div>
                     <p>Subir foto o avatar</p>
-                    <input type="file" id="avatar" name="avatar" accept="image/*" required>
+                    <input type="file" name="avatar" accept="image/*">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Register</button>
