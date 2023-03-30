@@ -1,5 +1,5 @@
 class User {
-    constructor(user, password, email, address, phone, avatar) {
+    constructor(user, password, email, address, phone, avatar, cart) {
       this.timestamp = Date.now();
       this.user = user;
       this.password = password;
@@ -7,6 +7,7 @@ class User {
       this.address = address;
       this.phone= phone;
       this.avatar = avatar;
+      this.cart = cart;
     }
   }
   

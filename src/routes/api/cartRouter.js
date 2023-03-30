@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const Cart = require("../../Class/Product")
 const cartController = require("../../controllers/productMongoDB")
+const sendMessage = require('../../helpers/twilioMessage')
 
 const cartRouter = Router();
 
@@ -85,6 +86,54 @@ cartRouter.delete("/:id/productos/:id_prod", async (req, res) => {
   await dbController.deleteProductInCart(id, id_prod);
 
   res.json(id);
+});
+
+cartRouter.get("/confirm", async (req, res) => {
+  const { url, method } = req;
+  if (req.session.email) {
+    const emailUser = req.session.email;
+
+    const user = await dbDAO.getUser(emailUser);
+    const cart = await dbDAO.getCartById(user.cartId);
+
+    let messageToSend = `Productos:`;
+    let html = `<h1>Productos:</h1>`;
+
+    for (const productInCart of cart.products) {
+      const product = await dbDAO.getProductById(productInCart.id);
+
+      messageToSend += `
+      - nombre: ${product.name}, precio: ${product.price}, quantity: ${productInCart.quantity}`;
+
+      html += `
+      <h2>- nombre: ${product.name}, precio: ${product.price}, quantity: ${productInCart.quantity}</h2>`;
+    }
+
+    const resultSendMessageUser = await sendMessage(user.numero, messageToSend);
+
+    const resultSendMessageAdministrator = await sendMessage(
+      numberAdministrator,
+      messageToSend,
+      true
+    );
+
+
+    const resultSendEmail = await sendEmail(
+      emailUser,
+      messageToSend,
+      `Nuevo pedido de ${user.nombre} - ${emailUser}`,
+      html
+    );
+
+    res.send(messageToSend);
+    return;
+  }
+
+  logger.error(
+    `El método y la ruta son: ${method} ${url}. Intento de acceso sin loggueo.`
+  );
+
+  res.redirect("/login");
 });
 
 

@@ -9,9 +9,6 @@ homeWebRouter.get('/', (req, res) => {
     console.log("9", email)
 
     if (email) {
-       // req.session.counter ++;
-    //res.json({ user: req.username, counter: req.session.counter });
-       // res.sendFile(path.join(process.cwd(), 'public/views/home.ejs'))
         res.render(path.join(process.cwd(), 'public/views/home.ejs'), { email })
     } else {
         res.sendFile(path.join(process.cwd(), 'public/views/login.ejs'))
