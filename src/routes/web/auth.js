@@ -16,9 +16,10 @@ authWebRouter.use(flash())
 //__LOGIN__//
 
 authWebRouter.get('/login', (req, res) => {
-    const nombre = req.session?.nombre
+    const nombre = req.session.email
+    console.log("20", nombre)
     if (nombre) {
-        res.redirect('/home')
+        res.redirect('/')
     } else {
         res.render(path.join(process.cwd(), 'public/views/login.ejs'), { message: req.flash('error') })
     }
@@ -26,18 +27,23 @@ authWebRouter.get('/login', (req, res) => {
 
 
 authWebRouter.post('/login', passport.authenticate('login', { failureRedirect: '/login', failureFlash: true }), (req, res) => {
-    req.session.username = req.user.username;
-    const { username, email, password } = req.body;
-    res.render(path.join(process.cwd(), 'public/views/home.ejs'), { username });
+    //const {email} = req.body;
+    
+    req.session.email = req.user.email;
+    const { email } = req.body;
+    res.redirect('/')
+   // res.render(path.join(process.cwd(), 'public/views/home.ejs'), { email });
+    
 });
 
 
 //__REGISTER__//
 
 authWebRouter.get('/register', (req, res) => {
-    const nombre = req.session?.nombre
+    const nombre = req.session.email
+    console.log("39", nombre)
     if (nombre) {
-        res.redirect('/home')
+        res.redirect('/')
     } else {
         res.render(path.join(process.cwd(), 'public/views/register.ejs'), { message: req.flash('error') })
     }
@@ -58,7 +64,7 @@ authWebRouter.post('/register', passport.authenticate('register', { failureRedir
     )
 
     const user = await userController.getUser(email)
-    console.log(user)
+    console.log("61", user.email)
 
     if (user) {
         console.log("usuario existente ")
@@ -84,13 +90,13 @@ authWebRouter.post('/register', passport.authenticate('register', { failureRedir
 //__LOGOUT__//
 
 authWebRouter.get('/logout', (req, res) => {
-    const nombre = req.session?.nombre
+    const nombre = req.session.email
     if (nombre) {
         req.session.destroy(err => {
             if (!err) {
                 res.render(path.join(process.cwd(), 'public/views/logout.ejs'), { nombre })
             } else {
-                res.redirect('/home')
+                res.redirect('/')
             }
         })
     } else {

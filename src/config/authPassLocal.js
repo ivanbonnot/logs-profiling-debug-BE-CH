@@ -5,16 +5,16 @@ const { hashSync, compareSync } = require('bcrypt');
 const users = [];
 
 passport.serializeUser(function(user, done) {
-  done(null, user.username);
+  done(null, user.email);
 });
 
-passport.deserializeUser(function(username, done) {
-  const user = users.find(user => user.username === username);
+passport.deserializeUser(function(email, done) {
+  const user = users.find(user => user.email === email);
   done(null, user);
 });
 
-passport.use('login', new LocalStrategy((username, password, done) => {
-  const user = users.find(user => user.username === username && compareSync(password, user.password));
+passport.use('login', new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
+  const user = users.find(user => user.email === email && compareSync(password, user.password));
   if (user) {
     done(null, user);
     return;
@@ -33,7 +33,7 @@ passport.use('register', new LocalStrategy({passReqToCallback: true},
     return;
   }
 
-  const user = { username, password: hashSync(password, 10), email };
+  const user = { email, password: hashSync(password, 10) };
   users.push(user);
   done(null, user);
 }));

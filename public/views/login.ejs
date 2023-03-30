@@ -32,11 +32,10 @@ https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
                         </div>
                         <% } %>
                 </div>
-
                 <div>
-                    <p>Username</p>
-                    <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username"
-                        required="" id="id_username">
+                    <p>Correo Electrónico</p>
+                    <input type="email" name="email" autofocus="" autocapitalize="none" autocomplete="email" required=""
+                        id="id_email">
                 </div>
                 <div>
                     <p>Password</p>
@@ -46,14 +45,10 @@ https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
                         <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
                     </div>
                 </div>
-                <div>
-                    <p>Correo Electrónico</p>
-                    <input type="email" name="email" autofocus="" autocapitalize="none" autocomplete="email" required=""
-                        id="id_email">
-                </div>
 
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
+            
             <form action="/register" method="get" autocomplete="off">
                 <button class="btn btn-success mt-3">Ir a Register</button>
             </form>

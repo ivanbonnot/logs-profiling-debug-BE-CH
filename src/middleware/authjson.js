@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
     : undefined;
 
   if (!token) {
-    res.sendFile(path.join(process.cwd(), 'public/views/login.html'))
+    res.sendFile(path.join(process.cwd(), 'public/views/login.ejs'))
     res.redirect('/login')
     return;
   }

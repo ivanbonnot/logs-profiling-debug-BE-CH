@@ -25,8 +25,8 @@ const baseProcces = () => {
     const infoRouter = require('./routes/api/infoRouter')
     const productsRouter = require("./routes/api/productRouter");
     const productsRouterTest = require("./routes/api/products-test");
-    const cartRouter = require('../src/routes/api/cartRouter.js')
-    const authWebRouter = require('../src/routes/web/auth.js')
+    const cartRouter = require('../src/routes/api/cartRouter')
+    const authWebRouter = require('../src/routes/web/auth')
     const homeWebRouter = require('../src/routes/web/home')
 
     const connectToDb = require("./config/connectToDb");
@@ -76,7 +76,6 @@ const baseProcces = () => {
     app.use("/info", infoRouter)
     app.use("/api/productos", productsRouter)
     app.use("/api/productos-test", productsRouterTest)
-    // app.use("/api/randoms", randomsRouter)
 
     //--- Ruta inexistente
     /*
