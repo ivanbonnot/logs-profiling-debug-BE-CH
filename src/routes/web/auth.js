@@ -27,13 +27,8 @@ authWebRouter.get('/login', (req, res) => {
 
 
 authWebRouter.post('/login', passport.authenticate('login', { failureRedirect: '/login', failureFlash: true }), (req, res) => {
-    //const {email} = req.body;
-    
     req.session.email = req.user.email;
-    const { email } = req.body;
     res.redirect('/')
-   // res.render(path.join(process.cwd(), 'public/views/home.ejs'), { email });
-    
 });
 
 
