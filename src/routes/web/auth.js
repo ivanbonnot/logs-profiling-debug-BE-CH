@@ -13,6 +13,7 @@ const authWebRouter = Router()
 authWebRouter.use(flash())
 
 
+
 //__LOGIN__//
 
 authWebRouter.get('/login', (req, res) => {
@@ -30,6 +31,7 @@ authWebRouter.post('/login', passport.authenticate('login', { failureRedirect: '
     req.session.email = req.user.email;
     res.redirect('/')
 });
+
 
 
 //__REGISTER__//
@@ -80,6 +82,7 @@ authWebRouter.post('/register', passport.authenticate('register', { failureRedir
     res.redirect('/login');
 
 });
+
 
 
 //__LOGOUT__//
