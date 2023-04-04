@@ -3,8 +3,6 @@ const {normalizedData, denormalizeData} = require('../normalizer/normalizr')
 
 class ControllerMongoDB {
 
-
-
   async getAll() {
 
     const array = {
@@ -20,7 +18,6 @@ class ControllerMongoDB {
     return array
     return denormalizeData(normalizedData(array))
   }
-
 
   async saveChat(mensaje) {
     try {

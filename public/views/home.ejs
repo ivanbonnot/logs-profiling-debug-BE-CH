@@ -51,62 +51,81 @@ https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
         </div>
 
         <div id="" class="row d-flex justify-content-center">
-            <div class="col">
-                <button id="newCartBtn" type="" class="btn btn-primary">Nuevo carrito</button>
-            </div>
+            <form action="/api/carrito" method="POST">
+                <div class="col">
+                    <button id="newCartBtn" type="" class="btn btn-primary">Nuevo carrito</button>
+                </div>
+            </form>
         </div>
 
         <div id="" class="row d-flex justify-content-center">
-            <div class="col">
-                <input type="text" class="form-control" id="idProdNew" aria-describedby="pHelp3">
-                <div id="pHelp3" class="form-text">ID producto a agregar</div>
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" id="idProdCartNew" aria-describedby="pHelp4">
-                <div id="pHelp4" class="form-text">ID del carrito</div>
-            </div>
-            <div class="col">
-                <button id="newItemCartBtn" type="" class="btn btn-primary">Agregar producto</button>
-            </div>
+            <form action="/api/carrito/:id/productos/:id_prod" method="POST">
+                <div class="col">
+                    <input type="text" class="form-control" id="idProdNew" aria-describedby="pHelp3">
+                    <div id="pHelp3" class="form-text">ID producto a agregar</div>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" id="idProdCartNew" aria-describedby="pHelp4">
+                    <div id="pHelp4" class="form-text">ID del carrito</div>
+                </div>
+                <div class="col">
+                    <button id="newItemCartBtn" type="" class="btn btn-primary">Agregar producto</button>
+                </div>
+            </form>
         </div>
 
 
         <div id="" class="row d-flex justify-content-center">
-            <div class="col">
-                <input type="text" class="form-control" id="idCartList" aria-describedby="pHelp4">
-                <div id="pHelp4" class="form-text">ID del carrito</div>
-            </div>
-            <div class="col">
-                <button id="listItemCartBtn" type="" class="btn btn-primary">Ver productos del carrito</button>
-            </div>
+            <form action="/api/carrito/:id/productos" method="GET">
+                <div class="col">
+                    <input type="text" class="form-control" id="idCartList" aria-describedby="pHelp4">
+                    <div id="pHelp4" class="form-text">ID del carrito</div>
+                </div>
+                <div class="col">
+                    <button id="listItemCartBtn" type="" class="btn btn-primary">Ver productos del carrito</button>
+                </div>
+            </form>
         </div>
         <div id="itemCartList" class="row"></div>
 
 
         <div id="" class="row d-flex justify-content-center ">
-            <div class="col">
-                <input type="text" class="form-control" id="idCartDel" aria-describedby="pHelp">
-                <div id="pHelp" class="form-text">ID de carrito a borrar</div>
-            </div>
-            <div class="col">
-                <button id="deleteCartBtn" type="" class="btn btn-primary">Borrar carrito</button>
-            </div>
+            <form action="/api/carrito/:id" method="DELETE">
+                <div class="col">
+                    <input type="text" class="form-control" id="idCartDel" aria-describedby="pHelp">
+                    <div id="pHelp" class="form-text">ID de carrito a borrar</div>
+                </div>
+                <div class="col">
+                    <button id="deleteCartBtn" type="" class="btn btn-primary">Borrar carrito</button>
+                </div>
+            </form>
         </div>
 
         <br>
 
         <div id="" class="row d-flex justify-content-center ">
-            <div class="col">
-                <input type="text" class="form-control" id="idProdDel" aria-describedby="pHelp1">
-                <div id="pHelp1" class="form-text">ID producto a borrar</div>
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" id="idProdCartDel" aria-describedby="pHelp2">
-                <div id="pHelp2" class="form-text">ID del carrito</div>
-            </div>
-            <div class="col">
-                <button id="deleteItemCartBtn" type="" class="btn btn-primary">Borrar producto</button>
-            </div>
+            <form action="/api/carrito/:id/productos/:id_prod" method="DELETE">
+                <div class="col">
+                    <input type="text" class="form-control" id="idProdDel" aria-describedby="pHelp1">
+                    <div id="pHelp1" class="form-text">ID producto a borrar</div>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" id="idProdCartDel" aria-describedby="pHelp2">
+                    <div id="pHelp2" class="form-text">ID del carrito</div>
+                </div>
+                <div class="col">
+                    <button id="deleteItemCartBtn" type="" class="btn btn-primary">Borrar producto</button>
+                </div>
+            </form>
+        </div>
+
+        
+        <div id="" class="row d-flex justify-content-center">
+            <form action="/api/carrito/confirm" method="GET">
+                <div class="col">
+                    <button id="newCartBtn" type="" class="btn btn-primary">Confirmar compra</button>
+                </div>
+            </form>
         </div>
 
         <div class="chat">

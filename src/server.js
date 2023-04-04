@@ -75,6 +75,7 @@ const baseProcces = () => {
     //Routes
     app.use("/info", infoRouter)
     app.use("/api/productos", productsRouter)
+    app.use("/api/carrito", cartRouter)
     app.use("/api/productos-test", productsRouterTest)
 
     //--- Ruta inexistente

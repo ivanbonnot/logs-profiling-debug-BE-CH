@@ -3,7 +3,7 @@ const flash = require('connect-flash');
 
 const path = require('path');
 const User = require('../../class/User')
-const userController = require('../../controllers/userMongoDB')
+const dbController = require('../../controllers/controllerMongoDB')
 
 const passport = require('passport');
 require('../../config/authPassLocal');
@@ -60,7 +60,7 @@ authWebRouter.post('/register', passport.authenticate('register', { failureRedir
         avatar
     )
 
-    const user = await userController.getUser(email)
+    const user = await dbController.getUser(email)
     console.log("61", user.email)
 
     if (user) {
@@ -76,7 +76,7 @@ authWebRouter.post('/register', passport.authenticate('register', { failureRedir
          `;
 
         sendEmail(email, username, html)
-        userController.saveUser(newUser);
+        dbController.saveUser(newUser);
     }
 
     res.redirect('/login');

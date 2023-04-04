@@ -1,13 +1,13 @@
 const { Router } = require("express")
 const Product = require("../../Class/Product")
-const productController = require("../../controllers/productMongoDB")
+const dbController = require("../../controllers/controllerMongoDB")
 
 const productsRouter = Router();
 
 const adm = true
 
 productsRouter.get('/', async (req, res) => {
-    const productos = await productController.getProducts();
+    const productos = await dbController.getProducts();
 
     res.json(productos);
 })
@@ -15,7 +15,7 @@ productsRouter.get('/', async (req, res) => {
 
 productsRouter.get('/:id', async (req, res) => {
     const { id } = req.params
-    const productById = await productController.getProductById(id)
+    const productById = await dbController.getProductById(id)
     console.log(id)
     if (productById) {
         res.json(productById)
@@ -38,7 +38,7 @@ productsRouter.post('/', async (req, res) => {
             stock
         );
 
-        productController.saveProduct(product)
+        dbController.saveProduct(product)
         res.json('Guardado')
 
     } else {
@@ -61,10 +61,10 @@ productsRouter.put('/:id', async (req, res) => {
             stock
         );
 
-        const productById = await productController.getProductById(id)
+        const productById = await dbController.getProductById(id)
 
         if (productById) {
-            await productController.updateProduct(id, productUpdate)
+            await dbController.updateProduct(id, productUpdate)
             res.send(productUpdate)
         } else {
             res.status(404).send({ error: 'id invalid / missing fields' })
@@ -78,7 +78,7 @@ productsRouter.put('/:id', async (req, res) => {
 productsRouter.delete('/:id', async (req, res) => {
     if (adm) {
         const { id } = req.params
-        const deleteProdById = await productController.deleteProduct(id)
+        const deleteProdById = await dbController.deleteProduct(id)
 
         if (deleteProdById) {
             res.send({ deleted: deleteProdById })

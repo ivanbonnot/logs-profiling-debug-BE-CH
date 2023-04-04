@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
 const { hashSync, compareSync } = require('bcrypt');
-const userController = require("../controllers/userMongoDB");
+const dbController = require("../controllers/controllerMongoDB");
 
 const users = [];
 // const usersMongoDB = [];
@@ -18,7 +18,7 @@ passport.deserializeUser(function (email, done) {
 
 passport.use('login', new LocalStrategy({ usernameField: "email" }, async (email, password, done) => {
   const user = users.find(user => user.email === email && compareSync(password, user.password));
-  // const usersDB= await userController.getUser(email)
+  // const usersDB= await dbController.getUser(email)
   // usersMongoDB.push(usersDB);
   // console.log(usersDB)
 
