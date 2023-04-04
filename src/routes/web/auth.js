@@ -61,7 +61,7 @@ authWebRouter.post('/register', passport.authenticate('register', { failureRedir
     )
 
     const user = await dbController.getUser(email)
-    console.log("61", user.email)
+    console.log("61", user)
 
     if (user) {
         console.log("usuario existente ")

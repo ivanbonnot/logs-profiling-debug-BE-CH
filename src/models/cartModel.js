@@ -1,10 +1,8 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose
 
-const ObjectId = Schema.ObjectId;
-
 const cartSchema = new Schema({
-  id: ObjectId,
+  timestamp: { type: Number, require: true },
   productos: { type: Array, required: true }
 })
 

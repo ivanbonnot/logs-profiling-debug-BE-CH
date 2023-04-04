@@ -10,7 +10,8 @@ const userSchema = new Schema({
   email: { type: String, required: true },
   address: {type: String, required: true},
   phone: {type: String, required: true},
-  avatar: {type: 'Buffer'}
+  avatar: {type: 'Buffer'},
+  cartId: { type: Schema.Types.ObjectId, require: true }
 });
 
 
