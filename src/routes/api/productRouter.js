@@ -42,7 +42,7 @@ productsRouter.post('/', async (req, res) => {
         res.json('Guardado')
 
     } else {
-        res.send('Error: 403 Ruta: "api/productos" Método: "POST" No Autorizada ')
+        res.send('Error: 403 Ruta: "api/productos" Método: "POST" No Autorizada')
     }
 })
 

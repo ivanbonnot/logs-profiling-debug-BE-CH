@@ -73,6 +73,8 @@ cartRouter.post("/", async (req, res) => {
 
 cartRouter.post("/:id/productos/:id_prod", async (req, res) => {
   const { url, method } = req;
+  const id = req.query.id
+  console.log(id)
   if (req.session.email) {
     const { id, id_prod } = req.params;
 

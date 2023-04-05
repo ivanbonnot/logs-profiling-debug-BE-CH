@@ -5,7 +5,7 @@ const logger = require('../src/log/log4js')
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
-const { config, staticFiles } = require('../src/config/enviroment')
+const { config } = require('../src/config/enviroment')
 const cluster = require('cluster')
 const numCPUs = require('os').cpus().length
 
@@ -36,7 +36,7 @@ const baseProcces = () => {
     const httpServer = new HTTPServer(app);
     const io = new IOServer(httpServer);
 
-    const productController = require('./controllers/productMongoDB');
+    const dbController = require('./controllers/controllerMongoDB');
     const chatsController = require('./controllers/chatMongoDB');
 
     //Settings
@@ -96,12 +96,12 @@ const baseProcces = () => {
         console.log('Nuevo cliente conectado!');
 
         // carga inicial de productos
-        socket.emit('productos', await productController.getAll());
+        socket.emit('productos', await dbController.getProducts());
 
         // actualizacion de productos
         socket.on('update', async producto => {
-            productController.saveProduct(producto)
-            io.sockets.emit('productos', await productController.getAll());
+            dbController.saveProduct(producto)
+            io.sockets.emit('productos', await dbController.getProducts());
         })
 
         // carga inicial de mensajes

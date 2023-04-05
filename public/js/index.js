@@ -3,7 +3,7 @@ const formPublicarMensaje = document.getElementById("formPublicarMensaje");
 const socket = io.connect();
 
 //------------------------------------------------------------------------------------
-
+/*
 formAgregarProducto.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -29,8 +29,10 @@ formAgregarProducto.addEventListener("submit", (e) => {
     socket.emit("update", producto);
     formAgregarProducto.reset();
 });
+*/
 
 socket.on("productos", (productos) => {
+    console.log(productos)
     makeHtmlTable(productos).then((html) => {
         document.getElementById("productos").innerHTML = html;
     });

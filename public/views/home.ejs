@@ -29,18 +29,20 @@ https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
     </div>
 
     <div class="container jumbotron">
-        <form id="agregarProducto">
-            <h2>Ingresar nuevo producto</h2>
-            <div class="border">
-                <p>Nombre: <input type="text" name="title"></p>
-                <p>Precio: <input type="text" name="price"></p>
-                <p>Url image: <input type="text" name="thumbnail"></p>
-            </div>
-            <div class="border">
-                <p>Descripción: <input type="text" name="description"></p>
-            </div>
-            <button id="enviar" class="btn">Enviar</button>
-        </form>
+        <div>
+            <form id="agregarProducto" action="/api/productos" method="POST">
+                <h2>Ingresar nuevo producto</h2>
+                <div class="border">
+                    <p>Nombre: <input type="text" name="title"></p>
+                    <p>Precio: <input type="text" name="price"></p>
+                    <p>Url image: <input type="text" name="thumbnail"></p>
+                </div>
+                <div class="border">
+                    <p>Descripción: <input type="text" name="description"></p>
+                </div>
+                <button id="enviar" class="btn">Enviar</button>
+            </form>
+        </div>
 
         <div id="productos"></div>
 
@@ -59,6 +61,7 @@ https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
         </div>
 
         <div id="" class="row d-flex justify-content-center">
+            
             <form action="/api/carrito/:id/productos/:id_prod" method="POST">
                 <div class="col">
                     <input type="text" class="form-control" id="idProdNew" aria-describedby="pHelp3">
@@ -119,7 +122,7 @@ https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
             </form>
         </div>
 
-        
+
         <div id="" class="row d-flex justify-content-center">
             <form action="/api/carrito/confirm" method="GET">
                 <div class="col">
