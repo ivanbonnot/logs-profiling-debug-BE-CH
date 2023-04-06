@@ -1,7 +1,8 @@
 const { Router } = require('express');
-const Cart = require("../../Class/Product")
+const Cart = require("../../class/Product")
 const dbController = require('../../controllers/controllerMongoDB')
 const sendMessage = require('../../helpers/twilioMessage')
+const sendEmail = require('../../helpers/nodeMailer')
 const logger = require('../../log/log4js')
 
 const cartRouter = Router();
@@ -19,6 +20,7 @@ cartRouter.get("/", async (req, res) => {
       res.status(403).json({ result: "error" });
       return;
     }
+
     res.json(user);
   } else {
     logger.error(`Ruta: ${url}, metodo: ${method}. Sesión no iniciada`)
@@ -138,7 +140,7 @@ cartRouter.delete("/:id/productos/:id_prod", async (req, res) => {
       return;
     }
 
-    const productToDelete = cart.products.find((product) => product.id === id_prod);
+    const productToDelete = cart.productos.find((product) => product.id === id_prod);
 
     if (!productToDelete) {
       logger.error(`El método y la ruta son: ${method} ${url}. Producto no se encuentra dentro del carrito.`);
@@ -160,6 +162,7 @@ cartRouter.delete("/:id/productos/:id_prod", async (req, res) => {
 
 cartRouter.get("/confirm", async (req, res) => {
   const { url, method } = req;
+
   if (req.session.email) {
     const emailUser = req.session.email;
 
@@ -169,29 +172,28 @@ cartRouter.get("/confirm", async (req, res) => {
     let messageToSend = `Productos:`;
     let html = `<h1>Productos:</h1>`;
 
-    for (const productInCart of cart.products) {
-      const product = await dbController.getProductById(productInCart.id);
+    for (const productCart of cart.productos) {
+      const product = await dbController.getProductById(productCart.id);
 
       messageToSend += `
-      - nombre: ${product.name}, precio: ${product.price}, quantity: ${productInCart.quantity}`;
+      - nombre: ${product.title}, precio: ${product.price}`;
 
       html += `
-      <h2>- nombre: ${product.name}, precio: ${product.price}, quantity: ${productInCart.quantity}</h2>`;
+      <h2>- nombre: ${product.title}, precio: ${product.price}</h2>`;
     }
 
-    const resultSendMessageUser = await sendMessage(user.numero, messageToSend);
+     await sendMessage(user.phone, messageToSend);
 
-    const resultSendMessageAdministrator = await sendMessage(
-      numberAdministrator,
+     await sendMessage(
+      process.env.WSP_NUMbER,
       messageToSend,
       true
     );
 
-
-    const resultSendEmail = await sendEmail(
+     await sendEmail(
       emailUser,
       messageToSend,
-      `Nuevo pedido de ${user.nombre} - ${emailUser}`,
+      `Nuevo pedido de ${user.username} - ${emailUser}`,
       html
     );
 

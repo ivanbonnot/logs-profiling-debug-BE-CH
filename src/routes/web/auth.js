@@ -3,6 +3,7 @@ const flash = require('connect-flash');
 
 const path = require('path');
 const User = require('../../class/User')
+const Cart = require('../../class/Cart')
 const dbController = require('../../controllers/controllerMongoDB')
 
 const passport = require('passport');
@@ -51,14 +52,18 @@ authWebRouter.post('/register', passport.authenticate('register', { failureRedir
     req.session.username = req.user.username;
     const { username, email, password, address, phone, avatar } = req.body;
 
-    const newUser = new User(
+    const cartAdd = new Cart();
+    const cart = await dbController.saveCart(cartAdd);
+
+    const newUser = {
         username,
         password,
         email,
         address,
         phone,
-        avatar
-    )
+        avatar,
+        cartId: cart._id,
+    }
 
     const user = await dbController.getUser(email)
     console.log("61", user)
@@ -66,7 +71,7 @@ authWebRouter.post('/register', passport.authenticate('register', { failureRedir
     if (user) {
         console.log("usuario existente ")
     } else {
-        
+
         const html = `
         <h2>Email: ${email}</h2>
         <h2>Nombre de usuario: ${username}</h2>

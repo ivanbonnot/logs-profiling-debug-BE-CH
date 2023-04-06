@@ -32,7 +32,6 @@ formAgregarProducto.addEventListener("submit", (e) => {
 */
 
 socket.on("productos", (productos) => {
-    console.log(productos)
     makeHtmlTable(productos).then((html) => {
         document.getElementById("productos").innerHTML = html;
     });
@@ -82,8 +81,6 @@ formPublicarMensaje.addEventListener("submit", (e) => {
 });
 
 socket.on("mensajes", (mensajes) => {
-
-    console.log(mensajes)
     const html = makeHtmlList(mensajes);
     document.getElementById("mensajes").innerHTML = html;
 
@@ -101,3 +98,78 @@ function makeHtmlList(mensajes) {
     })
         .join(" ");
 }
+
+
+
+
+//----CART----//
+
+
+const idProdNew = document.getElementById("idProdNew")
+const idProdCartNew = document.getElementById("idProdCartNew")
+const idCartList = document.getElementById("idCartList")
+const idCartDel = document.getElementById("idCartDel")
+const idProdDel = document.getElementById("idProdDel")
+const idProdCartDel = document.getElementById("idProdCartDel")
+
+
+//-- Agregar producto en carrito
+document.getElementById("newItemCartBtn").addEventListener("click", ev => {
+  fetch(`http://localhost:8080/api/carrito/${idProdCartNew.value}/productos/${idProdNew.value}`, {
+    method: 'POST'
+  })
+    .then((response) => response.text())
+    .then((text) => {
+      alert(text)
+      idProdNew.value = ''
+    })
+})
+
+//-- Listar productos del carrito
+document.getElementById("listItemCartBtn").addEventListener("click", ev => {
+  fetch(`http://localhost:8080/api/carrito/${idCartList.value}/productos/`, {
+    method: 'GET'
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      makeHtmlTable(data).then(html => {
+        console.log(data)
+        document.getElementById('itemCartList').innerHTML = html
+      })
+      idCartList.value = ''
+    })
+})
+
+//-- Borrar carrito
+document.getElementById("deleteCartBtn").addEventListener("click", ev => {
+  fetch(`http://localhost:8080/api/carrito/${idCartDel.value}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'text/plain'
+    }
+  })
+    .then((response) => response.text())
+    .then((text) => {
+      alert('Carrito ' + idCartDel.value + ' borrado.')
+      idCartDel.value = ''
+      // socket.emit('newCart')
+    })
+})
+
+//-- Borrar elemento de carrito
+document.getElementById("deleteItemCartBtn").addEventListener("click", ev => {
+  fetch(`http://localhost:8080/api/carrito/${idProdCartDel.value}/productos/${idProdDel.value}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'text/plain'
+    }
+  })
+    .then((response) => response.text())
+    .then((text) => {
+      console.log(text)
+      idProdDel.value = ''
+    })
+})
+
+
+
