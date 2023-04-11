@@ -25,7 +25,6 @@ const baseProcces = () => {
     const infoRouter = require('./routes/api/info')
     const productsRouter = require("./routes/api/product");
     const productsRouterTest = require("./routes/api/products-test");
-    const randomsRouter = require('./routes/api/randoms')
     const authWebRouter = require('../src/routes/web/auth.js')
     const homeWebRouter = require('../src/routes/web/home')
 
@@ -36,8 +35,8 @@ const baseProcces = () => {
     const httpServer = new HTTPServer(app);
     const io = new IOServer(httpServer);
 
-    const productController = require('./controllers/productMongoDB');
-    const chatsController = require('./controllers/chatMongoDB');
+    const productController = require('./controllers/mongoDB/productMongoDB');
+    const chatsController = require('./controllers/mongoDB/chatMongoDB');
 
     //Settings
     app.set('port', process.env.PORT || 8080)
@@ -76,7 +75,6 @@ const baseProcces = () => {
     app.use("/info", infoRouter)
     app.use("/api/productos", productsRouter)
     app.use("/api/productos-test", productsRouterTest)
-    // app.use("/api/randoms", randomsRouter)
 
     //--- Ruta inexistente
     app.get('*', (req, res) => {

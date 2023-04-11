@@ -3,10 +3,11 @@ const flash = require('connect-flash');
 
 const path = require('path');
 const User = require('../../class/User')
-const userController = require('../../controllers/userMongoDB')
+const userController = require('../../controllers/mongoDB/userMongoDB')
 
 const passport = require('passport');
-require('../../config/authPassLocal');
+require('../../controllers/login/login');
+require('../../controllers/login/singup');
 
 const authWebRouter = Router()
 authWebRouter.use(flash())

@@ -1,5 +1,4 @@
-const chatModel = require('../models/chatModel')
-const {normalizedData, denormalizeData} = require('../normalizer/normalizr')
+const chatModel = require('../../models/chatModel')
 
 class ControllerMongoDB {
 
@@ -18,7 +17,6 @@ class ControllerMongoDB {
     })
     
     return array
-    return denormalizeData(normalizedData(array))
   }
 
 

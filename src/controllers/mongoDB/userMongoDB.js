@@ -1,11 +1,10 @@
-const userModel = require("../models/userModel")
+const userModel = require("../../models/userModel")
 
 class ControllerMongoDb {
 
     saveUser = async (userToAdd) => {
         const user = new userModel(userToAdd);
         await user.save();
-        console.log("guardado", user)
     };
 
     getAll = async () => await userModel.find({});
