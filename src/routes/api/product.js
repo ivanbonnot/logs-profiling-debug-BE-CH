@@ -1,6 +1,6 @@
 const { Router } = require("express")
 const Product = require("../../class/Product")
-const dbController = require("../../controllers/mongoDB/controllerMongoDB")
+const dbController = require("../../dataAccessObj/mongoDA")
 
 const productsRouter = Router();
 

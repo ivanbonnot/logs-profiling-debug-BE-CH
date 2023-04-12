@@ -3,7 +3,7 @@ const flash = require('connect-flash');
 
 const path = require('path');
 const User = require('../../class/User')
-const dbController = require('../../controllers/mongoDB/controllerMongoDB')
+const dbController = require('../../dataAccessObj/mongoDA')
 
 const passport = require('passport');
 require('../../controllers/login/login');

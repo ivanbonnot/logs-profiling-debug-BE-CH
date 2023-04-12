@@ -35,8 +35,7 @@ const baseProcces = () => {
     const httpServer = new HTTPServer(app);
     const io = new IOServer(httpServer);
 
-    const dbController = require('./controllers/mongoDB/controllerMongoDB');
-    const chatsController = require('./controllers/mongoDB/chatMongoDB');
+    const dbController = require('./dataAccessObj/mongoDA');
 
     //Settings
     app.set('port', process.env.PORT || 8080)
@@ -103,13 +102,13 @@ const baseProcces = () => {
         })
 
         // carga inicial de mensajes
-        socket.emit('mensajes', await chatsController.getAll());
+        socket.emit('mensajes', await dbController.getAllChats());
 
         // actualizacion de mensajes
         socket.on('nuevoMensaje', async mensaje => {
             mensaje.date = new Date().toLocaleString()
-            await chatsController.saveChat(mensaje)
-            io.sockets.emit('mensajes', await chatsController.getAll());
+            await dbControllersaveChat(mensaje)
+            io.sockets.emit('mensajes', await dbController.getAllChats());
         })
     });
 

@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
 const {  compareSync } = require('bcrypt');
-const dbController = require("../../controllers/mongoDB/controllerMongoDB");
+const dbController = require("../../dataAccessObj/mongoDA");
 
 const users = [];
 let userMongo = [];
