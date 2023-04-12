@@ -5,7 +5,7 @@ const logger = require('../src/log/log4js')
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
-const { config, staticFiles } = require('../src/config/enviroment')
+const { config } = require('../src/config/enviroment')
 const cluster = require('cluster')
 const numCPUs = require('os').cpus().length
 
@@ -25,17 +25,17 @@ const baseProcces = () => {
     const infoRouter = require('./routes/api/info')
     const productsRouter = require("./routes/api/product");
     const productsRouterTest = require("./routes/api/products-test");
-    const authWebRouter = require('../src/routes/web/auth.js')
+    const authWebRouter = require('../src/routes/web/auth')
     const homeWebRouter = require('../src/routes/web/home')
 
-    const connectToDb = require("./config/connectToDb");
+    const connectToDb = require("./config/connectToDB");
 
     const app = express();
 
     const httpServer = new HTTPServer(app);
     const io = new IOServer(httpServer);
 
-    const productController = require('./controllers/mongoDB/productMongoDB');
+    const dbController = require('./controllers/mongoDB/controllerMongoDB');
     const chatsController = require('./controllers/mongoDB/chatMongoDB');
 
     //Settings
@@ -77,11 +77,12 @@ const baseProcces = () => {
     app.use("/api/productos-test", productsRouterTest)
 
     //--- Ruta inexistente
+    /*
     app.get('*', (req, res) => {
         logger.warn(`Ruta: ${req.url}, metodo: ${req.method} no existe`)
         res.send(`Ruta: ${req.url}, metodo: ${req.method} no existe`)
     })
-
+    */
 
     //__ WebServ Routes __//
     app.use("/", authWebRouter)
@@ -93,12 +94,12 @@ const baseProcces = () => {
         console.log('Nuevo cliente conectado!');
 
         // carga inicial de productos
-        socket.emit('productos', await productController.getAll());
+        socket.emit('productos', await dbController.getProducts());
 
         // actualizacion de productos
         socket.on('update', async producto => {
-            productController.saveProduct(producto)
-            io.sockets.emit('productos', await productController.getAll());
+            dbController.saveProduct(producto)
+            io.sockets.emit('productos', await dbController.getProducts());
         })
 
         // carga inicial de mensajes

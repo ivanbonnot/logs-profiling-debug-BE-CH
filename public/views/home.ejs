@@ -16,12 +16,12 @@
     <script src="
 https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
 "></script>
-    <title>webSocket</title>
+    <title>Home</title>
 </head>
 
 <body>
     <div id="welcome" class="jumbotron">
-        <h2> Bienvenido <%=username%>
+        <h2> Bienvenido <%=email%>
         </h2>
         <form action="/logout" method="get" autocomplete="off">
             <button class="btn btn-success mt-3">Logout</button>
@@ -29,20 +29,23 @@ https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js
     </div>
 
     <div class="container jumbotron">
-        <form id="agregarProducto">
-            <h2>Ingresar nuevo producto</h2>
-            <div class="border">
-                <p>Nombre: <input type="text" name="title"></p>
-                <p>Precio: <input type="text" name="price"></p>
-                <p>Url image: <input type="text" name="thumbnail"></p>
-            </div>
-            <div class="border">
-                <p>Descripción: <input type="text" name="description"></p>
-            </div>
-            <button id="enviar" class="btn">Enviar</button>
-        </form>
+        <div>
+            <form id="agregarProducto" action="/api/productos" method="POST">
+                <h2>Ingresar nuevo producto</h2>
+                <div class="border">
+                    <p>Nombre: <input type="text" name="title"></p>
+                    <p>Precio: <input type="text" name="price"></p>
+                    <p>Url image: <input type="text" name="thumbnail"></p>
+                </div>
+                <div class="border">
+                    <p>Descripción: <input type="text" name="description"></p>
+                </div>
+                <button id="enviar" class="btn">Enviar</button>
+            </form>
+        </div>
 
         <div id="productos"></div>
+
 
         <div class="chat">
             <h1>Chat</h1>
